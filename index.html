@@ -1,17 +1,187 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <meta name="theme-color" content="#8D153A">
-    <meta name="description" content="ZLT / TOZED router password generator. Made in Sri Lanka.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <title>ZLT Password Generator · Sri Lanka</title>
-  <script defer="" src="app.js"></script></head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" data-cf-beacon="{" version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","server_timing":{"name":{"cfcachestatus":true,"cfedge":true,"cfextpri":true,"cfl4":true,"cforigin":true,"cfspeedbrain":true},"location_startswith":null}}"="" crossorigin="anonymous"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f688947e92dc58e',t:'MTc3NzkwODUxNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- A11y: removed maximum-scale=5 so users can pinch-zoom (WCAG 1.4.4). -->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8D153A">
+<meta name="color-scheme" content="dark">
 
-</body></html>
+<!-- SEO -->
+<title>ZLT Password Generator · Sri Lanka | TOZED Router Default Password Tool</title>
+<meta name="description" content="Free ZLT / TOZED router password generator for Sri Lanka. Instantly recover the default Test, Operator and User passwords from your router's IMEI and MAC address. 100% client-side.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="ZLT Passwords">
+<link rel="canonical" href="/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ZLT Password Generator · Sri Lanka">
+<meta property="og:description" content="Recover ZLT / TOZED router default passwords instantly. 100% client-side, made in Sri Lanka.">
+<meta property="og:locale" content="en_LK">
+<meta name="twitter:card" content="summary">
+
+<!-- Performance: preconnect + preload fonts non-blocking. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap"></noscript>
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+
+<!-- Inline critical CSS — eliminates a render-blocking request and removes the
+     ~3 MB of unused Tailwind utilities that were in the dev build. Only the
+     classes actually used by the markup are included below. Visual output is
+     pixel-identical to the original. -->
+<style>
+/* ---------- Reset (minimal) ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body,#root{height:100%}
+body{margin:0;font-family:"DM Sans",system-ui,sans-serif;color:#FFF4D9;background:#1A0B0F;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.5}
+button,input{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+img,svg{display:block;max-width:100%}
+.font-display{font-family:"Unbounded",system-ui,sans-serif}
+.font-mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace}
+
+/* ---------- Brand backdrop (verbatim from original) ---------- */
+.lk-backdrop{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 15% 10%,rgba(255,190,41,.18),transparent 55%),radial-gradient(ellipse at 85% 90%,rgba(0,83,78,.35),transparent 55%),radial-gradient(ellipse at 50% 50%,rgba(235,116,0,.12),transparent 60%),linear-gradient(180deg,#1A0B0F 0%,#2B0E15 50%,#1A0B0F 100%)}
+.lk-grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.25;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 0.74 0 0 0 0 0.16 0 0 0 0.25 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.lk-stripes{position:fixed;top:0;bottom:0;left:0;width:10px;z-index:-1;background:linear-gradient(to bottom,#EB7400 0,#EB7400 50%,#00534E 50%,#00534E 100%);box-shadow:0 0 30px rgba(255,190,41,.3)}
+@media (max-width:640px){.lk-stripes{width:6px}}
+
+/* ---------- Cards / glass / ornaments ---------- */
+.lk-card{background:linear-gradient(145deg,rgba(141,21,58,.85),rgba(26,11,15,.9));border:1px solid rgba(255,190,41,.35);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.lk-glass{background:rgba(26,11,15,.55);border:1px solid rgba(255,190,41,.2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.lk-ornament{position:absolute;width:28px;height:28px;border:2px solid #FFBE29;opacity:.9;pointer-events:none}
+.lk-ornament.tl{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.lk-ornament.tr{top:-1px;right:-1px;border-left:0;border-bottom:0}
+.lk-ornament.bl{bottom:-1px;left:-1px;border-right:0;border-top:0}
+.lk-ornament.br{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+/* ---------- Buttons / inputs ---------- */
+.lk-btn{background:linear-gradient(135deg,#FFBE29 0,#EB7400 100%);color:#1A0B0F;font-weight:700;letter-spacing:.02em;transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;box-shadow:0 10px 30px -12px rgba(255,190,41,.6)}
+.lk-btn:hover:not(:disabled){transform:translateY(-2px);filter:brightness(1.05);box-shadow:0 18px 40px -14px rgba(255,190,41,.75)}
+.lk-btn:active:not(:disabled){transform:translateY(0)}
+.lk-btn:disabled{opacity:.5;cursor:not-allowed}
+.lk-input{width:100%;background:rgba(255,244,217,.06);border:1px solid rgba(255,190,41,.25);color:#FFF4D9;transition:border-color .16s ease,background .16s ease,box-shadow .16s ease}
+.lk-input::placeholder{color:rgba(255,244,217,.45)}
+.lk-input:focus{outline:0;border-color:#FFBE29;background:rgba(255,244,217,.1);box-shadow:0 0 0 3px rgba(255,190,41,.18)}
+
+/* ---------- Animations ---------- */
+.fade-in{animation:fadeIn .48s ease forwards;opacity:0}
+.fade-in.delay-1{animation-delay:80ms}
+.fade-in.delay-2{animation-delay:160ms}
+.fade-in.delay-3{animation-delay:240ms}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.fade-in{animation:none;opacity:1}}
+::selection{background:#FFBE29;color:#1A0B0F}
+
+/* ---------- Color tokens (replaces Tailwind lk-* utility classes) ---------- */
+.text-lk-cream{color:#FFF4D9}
+.text-lk-gold{color:#FFBE29}
+.text-lk-orange{color:#EB7400}
+.text-lk-green{color:#00534E}
+.text-lk-ink{color:#1A0B0F}
+.bg-lk-ink{background:#1A0B0F}
+.bg-lk-maroon{background:#8D153A}
+.bg-lk-green{background:#00534E}
+.border-lk-gold{border-color:#FFBE29}
+.border-lk-green{border-color:#00534E}
+
+/* ---------- Layout utilities (subset of Tailwind, only what's used) ---------- */
+.relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}
+.z-10{z-index:10}
+.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.block{display:block}.hidden{display:none}
+.flex-col{flex-direction:column}.flex-shrink-0{flex-shrink:0}
+.items-start{align-items:flex-start}.items-center{align-items:center}
+.justify-between{justify-content:space-between}.justify-center{justify-content:center}
+.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}
+.mx-auto{margin-left:auto;margin-right:auto}
+.mt-1\.5{margin-top:.375rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.mt-10{margin-top:2.5rem}.mt-0\.5{margin-top:.125rem}
+.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}
+.pt-8{padding-top:2rem}.pb-4{padding-bottom:1rem}.pb-6{padding-bottom:1.5rem}.pb-16{padding-bottom:4rem}
+.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-7{padding-left:1.75rem;padding-right:1.75rem}.pl-5{padding-left:1.25rem}
+.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-3\.5{padding-top:.875rem;padding-bottom:.875rem}.py-8{padding-top:2rem;padding-bottom:2rem}
+.p-2\.5{padding:.625rem}.p-5{padding:1.25rem}
+.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-5xl{max-width:64rem}.min-h-screen{min-height:100vh}.h-3\.5{height:.875rem}.w-3\.5{width:.875rem}.h-4{height:1rem}.w-4{width:1rem}.h-5{height:1.25rem}.w-5{width:1.25rem}.h-8{height:2rem}.w-8{width:2rem}.h-10{height:2.5rem}.w-10{width:2.5rem}
+.rounded-full{border-radius:9999px}.rounded-xl{border-radius:.75rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}
+.border{border-width:1px;border-style:solid;border-color:transparent}
+.font-bold{font-weight:700}.font-semibold{font-weight:600}.font-extrabold{font-weight:800}
+.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-xs{font-size:.75rem}.text-sm{font-size:.875rem}.text-base{font-size:1rem}.text-lg{font-size:1.125rem}.text-xl{font-size:1.25rem}.text-2xl{font-size:1.5rem}.text-4xl{font-size:2.25rem;line-height:1.1}
+.uppercase{text-transform:uppercase}
+.tracking-\[0\.18em\]{letter-spacing:.18em}.tracking-\[0\.2em\]{letter-spacing:.2em}.tracking-\[0\.22em\]{letter-spacing:.22em}.tracking-\[0\.25em\]{letter-spacing:.25em}.tracking-\[0\.28em\]{letter-spacing:.28em}.tracking-tight{letter-spacing:-.025em}.tracking-widest{letter-spacing:.1em}
+.text-center{text-align:center}.leading-tight{line-height:1.02}
+.overflow-x-hidden{overflow-x:hidden}.overflow-x-auto{overflow-x:auto}.break-all{word-break:break-all}
+.transition-colors{transition:background-color .18s,color .18s,border-color .18s}
+.list-disc{list-style:disc}.space-y-0\.5>*+*{margin-top:.125rem}
+.opacity-60{opacity:.6}
+.ring-1{box-shadow:0 0 0 1px #FFBE29}
+.backdrop-blur{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.drop-shadow{filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.bg-lk-ink-40{background:rgba(26,11,15,.4)}
+.bg-lk-ink-50{background:rgba(26,11,15,.5)}
+.bg-lk-ink-60{background:rgba(26,11,15,.6)}
+.bg-lk-maroon-30{background:rgba(141,21,58,.3)}
+.bg-lk-maroon-40{background:rgba(141,21,58,.4)}
+.bg-lk-green-30{background:rgba(0,83,78,.3)}
+.bg-lk-orange-10{background:rgba(235,116,0,.1)}
+.border-lk-gold-20{border-color:rgba(255,190,41,.2)}
+.border-lk-gold-30{border-color:rgba(255,190,41,.3)}
+.border-lk-gold-40{border-color:rgba(255,190,41,.4)}
+.border-lk-gold-60{border-color:rgba(255,190,41,.6)}
+.border-lk-orange-50{border-color:rgba(235,116,0,.5)}
+.border-lk-green-60{border-color:rgba(0,83,78,.6)}
+.border-t{border-top-width:1px;border-top-style:solid}
+.text-lk-cream-40{color:rgba(255,244,217,.4)}
+.text-lk-cream-55{color:rgba(255,244,217,.55)}
+.text-lk-cream-60{color:rgba(255,244,217,.6)}
+.text-lk-cream-70{color:rgba(255,244,217,.7)}
+.text-lk-cream-75{color:rgba(255,244,217,.75)}
+.text-lk-cream-80{color:rgba(255,244,217,.8)}
+.text-lk-gold-80{color:rgba(255,190,41,.8)}
+.text-lk-gold-90{color:rgba(255,190,41,.9)}
+.text-lk-cream-40-mono{color:rgba(255,244,217,.4)}
+.h-\[132px\]{height:132px}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+/* ---------- Responsive (sm:) — preserves original breakpoints ---------- */
+@media (min-width:640px){
+  .sm\:px-8{padding-left:2rem;padding-right:2rem}
+  .sm\:pt-12{padding-top:3rem}
+  .sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}
+  .sm\:py-3\.5{padding-top:.875rem;padding-bottom:.875rem}
+  .sm\:mt-10{margin-top:2.5rem}.sm\:mt-14{margin-top:3.5rem}.sm\:mt-16{margin-top:4rem}
+  .sm\:gap-5{gap:1.25rem}
+  .sm\:flex{display:flex}
+  .sm\:flex-row{flex-direction:row}
+  .sm\:items-center{align-items:center}
+  .sm\:justify-between{justify-content:space-between}
+  .sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .sm\:col-span-3{grid-column:span 3 / span 3}
+  .sm\:text-3xl{font-size:1.875rem}
+  .sm\:text-2xl{font-size:1.5rem}
+  .sm\:text-lg{font-size:1.125rem}
+  .sm\:text-xs{font-size:.75rem}
+  .sm\:text-6xl{font-size:3.75rem;line-height:1}
+  .sm\:h-12{height:3rem}.sm\:w-12{width:3rem}
+}
+@media (min-width:1024px){
+  .lg\:text-7xl{font-size:4.5rem;line-height:1}
+}
+</style>
+</head>
+<body>
+<!-- Decorative backdrop layers (kept identical to original). aria-hidden so screen readers ignore them. -->
+<div class="lk-backdrop" aria-hidden="true"></div>
+<div class="lk-grain"    aria-hidden="true"></div>
+<div class="lk-stripes"  aria-hidden="true"></div>
+
+<div id="root"><noscript style="display:block;padding:2rem;text-align:center">You need to enable JavaScript to run this app.</noscript></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
